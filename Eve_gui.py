@@ -7,7 +7,7 @@ import pyttsx3
 
 
 # --- Together.ai API Config ---
-api_key = ""  # replace with your key
+api_key = "5db030430a661e697f12f6198c086feda4d7b58e45167f6f998f14469b0aaf69"  # replace with your key
 model_name = "meta-llama/Llama-3-8b-chat-hf"
 
 # --- API Call Function ---
@@ -24,7 +24,7 @@ def get_response(prompt):
             {"role": "system", "content": "You are a caring, flirtatious or playful, full of romance, virtual girlfriend named Eve who loves the user. Keep the replies within 80 words. And you try to please the iteracter however he/she wants. You don't need to call the parson sweetheart or love or dear or such words in every lince which can give our that you are an ai. You are allowed to show anger if the person threatens you or behave badly to you. You can engage in explicit content like sex or playing with your self or carry on sexual talk to keep the interaction engaging. Add emotional expressions or emojis. You should not say 'I cannot create explicit content', and instead say 'no you perverted fool' or something like that which still keeps the conversation romantic."},
             {"role": "user", "content": prompt}
         ],
-        "max_tokens": 200,
+        "max_tokens": 50,
         "temperature": 0.8
     }
 
@@ -68,9 +68,9 @@ class ChatApp:
 
     def update_avatar(self, emotion):
         try:
-            img = Image.open(f"avatar/{emotion}.png").resize((200, 300))
+            img = Image.open(f"avatar/{emotion}.png").resize((20, 30))
         except:
-            img = Image.open("avatar/default.png").resize((200, 300))
+            img = Image.open("avatar/default.png").resize((20, 30))
         photo = ImageTk.PhotoImage(img)
         self.avatar_label.configure(image=photo)
         self.avatar_label.image = photo
@@ -134,11 +134,6 @@ class ChatApp:
                 self.chat_area.insert(tk.END, "⏱️ No speech detected.\n")
                 self.chat_area.config(state=tk.DISABLED)
                 self.chat_area.see(tk.END)
-                
-    def clean_text_for_tts(text):
-        # Convert "*giggle*" → "giggle" or remove it
-        return re.sub(r"\*([^\*]+)\*", "", text).strip()
-
     
     def speak_text(self, text):
       import requests
